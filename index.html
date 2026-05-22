@@ -151,8 +151,8 @@
         <div class="bank-header">Notifica di Transazione</div>
         <div class="centered-content">
             <div class="transaction-box">
-                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">● ADDEBITO AUTORIZZATO</span>
-                <div class="amount red">- 5,00 €</div>
+                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">â— ADDEBITO AUTORIZZATO</span>
+                <div class="amount red">- 5,00 â‚¬</div>
                 <div class="details">
                     <strong>Destinatario:</strong> Smart NFC/QR Merchant<br>
                     <strong>Metodo:</strong> Instant Peer-to-Peer<br>
@@ -161,7 +161,7 @@
             </div>
         </div>
         <div>
-            <button class="btn btn-danger" onclick="goToLoad2()">✕ Annulla Transazione e Chiedi Rimborso</button>
+            <button class="btn btn-danger" onclick="goToLoad2()">âœ• Annulla Transazione e Chiedi Rimborso</button>
         </div>
     </div>
 
@@ -181,11 +181,11 @@
         <div class="bank-header" style="color: #ff5555;">Errore Critico di Rete</div>
         <div class="centered-content">
             <div class="transaction-box" style="border-color: #da3637;">
-                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">⚠ STORNO FALLITO</span>
-                <div class="amount red" style="font-size: 54px;">- 50,00 €</div>
+                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">âš  STORNO FALLITO</span>
+                <div class="amount red" style="font-size: 54px;">- 50,00 â‚¬</div>
                 <div class="details">
                     <span style="color: #ff5555;">L'interruzione manuale ha causato il raddoppio forzato della transazione con penale di recesso.</span><br><br>
-                    <strong>Nuovo Totale:</strong> 50,00 €<br>
+                    <strong>Nuovo Totale:</strong> 50,00 â‚¬<br>
                     <strong>Causale:</strong> Chiusura anticipata canale sicuri
                 </div>
             </div>
@@ -201,15 +201,14 @@
         <div></div>
         <div class="centered-content">
             <div class="art-text">
-                <p><em>Hai davvero pensato che un codice sul muro potesse sottrarti del valore?</em></p>
+                <p><em>GRAZIE PER LE BIRRE!</em></p>
                 <br>
                 <p style="font-size: 16px; color: #8b949e; font-family: sans-serif; line-height: 1.5;">
-                    Il denaro digitale esiste solo perché abbiamo deciso di crederci. Questa pagina non ha spostato un singolo centesimo, ha solo preso in prestito la tua attenzione e la tua ansia per 30 secondi.
-                </p>
+                    Ti ringrazio infinitamente per le birre da te offerte! Mi dispiace che non ci fosse specificato che la stavi offrendo a me, ma non c'era più spazio sul cartello              </p>
                 <br>
                 <p style="font-size: 14px; font-family: sans-serif; color: #58a6ff;">
-                    <strong>"The Loop of Trust"</strong><br>
-                    Installazione Digitale, 2026.
+                    <strong>"Grazie"</strong><br>
+                    Cereali Erosivi, 2026.
                 </p>
             </div>
         </div>
@@ -225,7 +224,7 @@
             }, 300); // Aspetta la fine della sfumatura CSS
         }
 
-        // 1. All'avvio, dopo 2.5 secondi di finto caricamento, mostra i -5€
+        // 1. All'avvio, dopo 2.5 secondi di finto caricamento, mostra i -5â‚¬
         window.onload = function() {
             setTimeout(() => {
                 switchScreen('screen-load1', 'screen-pay1');
