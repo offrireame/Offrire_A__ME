@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bank Mobile Connect</title>
+    <style>
+        /* Reset e blocco dello scroll per simulare un'app nativa */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #ffffff;
+        }
+
+        /* Schermate */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Centratore per i caricamenti */
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* Elementi grafici finti bancari */
+        .bank-header {
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #8b949e;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .transaction-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .amount {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        .amount.red { color: #ff5555; }
+        .amount.green { color: #4ade80; }
+        
+        .details {
+            font-size: 13px;
+            color: #8b949e;
+            line-height: 1.6;
+            border-top: 1px solid #30363d;
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        /* Pulsanti */
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.1s ease;
+            margin: 10px auto;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-danger { background-color: #da3637; color: white; }
+        .btn-secondary { background-color: #21262d; color: #c9d1d9; border: 1px solid #30363d; }
+        .btn-primary { background-color: #238636; color: white; }
+
+        /* Animazione Spinner */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #30363d;
+            border-top: 5px solid #2f81f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Testo dell'opera finale */
+        .art-text {
+            font-family: serif;
+            font-size: 20px;
+            line-height: 1.8;
+            color: #e6edf3;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SCHERMATA 1: CARICAMENTO INIZIALE -->
+    <div id="screen-load1" class="screen active">
+        <div class="bank-header">Secure QR Gateway</div>
+        <div class="centered-content">
+            <div class="spinner"></div>
+            <p style="color: #8b949e;">Sincronizzazione con il protocollo bancario...</p>
+        </div>
+        <div></div>
+    </div>
+
+    <!-- SCHERMATA 2: PRIMO ADDEBITO (5 EURO) -->
+    <div id="screen-pay1" class="screen">
+        <div class="bank-header">Notifica di Transazione</div>
+        <div class="centered-content">
+            <div class="transaction-box">
+                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">● ADDEBITO AUTORIZZATO</span>
+                <div class="amount red">- 5,00 €</div>
+                <div class="details">
+                    <strong>Destinatario:</strong> Smart NFC/QR Merchant<br>
+                    <strong>Metodo:</strong> Instant Peer-to-Peer<br>
+                    <strong>Stato:</strong> Confermato dalla rete
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-danger" onclick="goToLoad2()">✕ Annulla Transazione e Chiedi Rimborso</button>
+        </div>
+    </div>
+
+    <!-- SCHERMATA 3: SECONDO CARICAMENTO CON GLITCH -->
+    <div id="screen-load2" class="screen">
+        <div class="bank-header" style="color: #ff5555;">Interruzione di Sicurezza</div>
+        <div class="centered-content">
+            <div class="spinner" style="border-top-color: #da3637;"></div>
+            <p style="color: #ff5555; font-weight: bold;">Tentativo di storno in corso...</p>
+            <p style="color: #8b949e; font-size: 12px; margin-top: 10px;">Non chiudere la pagina per evitare conflitti di rete.</p>
+        </div>
+        <div></div>
+    </div>
+
+    <!-- SCHERMATA 4: IL PARADOSSO (50 EURO) -->
+    <div id="screen-pay2" class="screen">
+        <div class="bank-header" style="color: #ff5555;">Errore Critico di Rete</div>
+        <div class="centered-content">
+            <div class="transaction-box" style="border-color: #da3637;">
+                <span style="color: #ff5555; font-weight: bold; font-size: 14px;">⚠ STORNO FALLITO</span>
+                <div class="amount red" style="font-size: 54px;">- 50,00 €</div>
+                <div class="details">
+                    <span style="color: #ff5555;">L'interruzione manuale ha causato il raddoppio forzato della transazione con penale di recesso.</span><br><br>
+                    <strong>Nuovo Totale:</strong> 50,00 €<br>
+                    <strong>Causale:</strong> Chiusura anticipata canale sicuri
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-secondary" onclick="goToArt()">Accetta Addebito</button>
+            <button class="btn btn-danger" onclick="goToArt()">Annulla Tutto / Chiedi Assistenza</button>
+        </div>
+    </div>
+
+    <!-- SCHERMATA 5: LA RIVELAZIONE DELL'OPERA -->
+    <div id="screen-art" class="screen" style="background-color: #000000;">
+        <div></div>
+        <div class="centered-content">
+            <div class="art-text">
+                <p><em>Hai davvero pensato che un codice sul muro potesse sottrarti del valore?</em></p>
+                <br>
+                <p style="font-size: 16px; color: #8b949e; font-family: sans-serif; line-height: 1.5;">
+                    Il denaro digitale esiste solo perché abbiamo deciso di crederci. Questa pagina non ha spostato un singolo centesimo, ha solo preso in prestito la tua attenzione e la tua ansia per 30 secondi.
+                </p>
+                <br>
+                <p style="font-size: 14px; font-family: sans-serif; color: #58a6ff;">
+                    <strong>"The Loop of Trust"</strong><br>
+                    Installazione Digitale, 2026.
+                </p>
+            </div>
+        </div>
+        <div></div>
+    </div>
+
+    <script>
+        // Funzione per cambiare schermata spegnendo la precedente e accendendo la nuova
+        function switchScreen(currentId, nextId) {
+            document.getElementById(currentId).classList.remove('active');
+            setTimeout(() => {
+                document.getElementById(nextId).classList.add('active');
+            }, 300); // Aspetta la fine della sfumatura CSS
+        }
+
+        // 1. All'avvio, dopo 2.5 secondi di finto caricamento, mostra i -5€
+        window.onload = function() {
+            setTimeout(() => {
+                switchScreen('screen-load1', 'screen-pay1');
+            }, 2500);
+        };
+
+        // 2. Quando clicca su "Annulla", mostra il caricamento d'errore per 2 secondi
+        function goToLoad2() {
+            switchScreen('screen-pay1', 'screen-load2');
+            setTimeout(() => {
+                switchScreen('screen-load2', 'screen-pay2');
+            }, 2000);
+        }
+
+        // 3. Qualsiasi cosa clicchi alla fine, va all'opera d'arte
+        function goToArt() {
+            switchScreen('screen-pay2', 'screen-art');
+        }
+    </script>
+</body>
+</html>
